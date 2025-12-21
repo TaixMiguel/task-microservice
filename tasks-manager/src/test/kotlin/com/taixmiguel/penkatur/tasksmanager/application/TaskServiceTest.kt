@@ -4,6 +4,7 @@ import com.taixmiguel.penkatur.tasksmanager.application.port.TaskRepository
 import com.taixmiguel.penkatur.tasksmanager.application.query.TaskSearchCriteria
 import com.taixmiguel.penkatur.tasksmanager.domain.Task
 import com.taixmiguel.penkatur.tasksmanager.domain.TaskType
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.InjectMocks
@@ -23,8 +24,11 @@ class TaskServiceTest {
     @Test
     fun shouldSaveTaskWhenIsValid() {
         val task = Task(title = "task-title", type = TaskType.WORK, dueDate = Instant.now())
-        service.saveTask(task)
+        Mockito.`when`(repository.save(task)).thenReturn(task)
+
+        val result = service.saveTask(task)
         Mockito.verify(repository).save(task)
+        Assertions.assertEquals(task, result)
     }
 
     @Test
