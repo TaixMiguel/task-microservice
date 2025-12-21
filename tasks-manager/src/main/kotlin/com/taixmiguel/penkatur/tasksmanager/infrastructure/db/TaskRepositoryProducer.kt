@@ -4,8 +4,8 @@ import com.taixmiguel.penkatur.tasksmanager.application.port.TaskRepository
 import com.taixmiguel.penkatur.tasksmanager.application.port.qualifier.DocumentRepository
 import com.taixmiguel.penkatur.tasksmanager.infrastructure.db.document.mongo.TaskPanacheMongoRepository
 import jakarta.enterprise.context.ApplicationScoped
+import jakarta.enterprise.inject.Produces
 import jakarta.inject.Inject
-import jakarta.ws.rs.Produces
 
 @ApplicationScoped
 class TaskRepositoryProducer {

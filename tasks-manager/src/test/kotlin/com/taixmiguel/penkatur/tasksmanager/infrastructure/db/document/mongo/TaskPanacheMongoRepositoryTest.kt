@@ -4,13 +4,13 @@ import com.taixmiguel.penkatur.tasksmanager.application.port.qualifier.DocumentR
 import com.taixmiguel.penkatur.tasksmanager.application.query.TaskSearchCriteria
 import com.taixmiguel.penkatur.tasksmanager.domain.Task
 import com.taixmiguel.penkatur.tasksmanager.domain.TaskType
-import com.taixmiguel.penkatur.tasksmanager.infrastructure.db.document.mongo.TaskPanacheMongoRepository
 import io.quarkus.test.junit.QuarkusTest
 import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 @QuarkusTest
 class TaskPanacheMongoRepositoryTest {

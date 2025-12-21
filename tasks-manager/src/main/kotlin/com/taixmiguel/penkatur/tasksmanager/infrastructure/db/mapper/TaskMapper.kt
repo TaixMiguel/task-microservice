@@ -22,5 +22,10 @@ fun Task.toEntityMongo(existingEntity: TaskMongoEntity? = null) = TaskMongoEntit
     updatedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS),
     createdAt = existingEntity?.createdAt ?: Instant.now().truncatedTo(ChronoUnit.SECONDS)
 ).apply {
-    id = this@toEntityMongo.id?.let { ObjectId(it) } ?: ObjectId()
+    id =
+        this@toEntityMongo.id
+            ?.takeIf { ObjectId.isValid(it) }
+            ?.let { ObjectId(it) }
+            ?: existingEntity?.id
+            ?: ObjectId()
 }

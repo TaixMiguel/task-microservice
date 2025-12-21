@@ -12,13 +12,14 @@ import io.quarkus.mongodb.panache.PanacheMongoRepository
 import jakarta.enterprise.context.ApplicationScoped
 import org.bson.conversions.Bson
 import org.bson.types.ObjectId
-import java.util.stream.Collectors
 
 @ApplicationScoped
 @DocumentRepository
 class TaskPanacheMongoRepository: TaskRepository, PanacheMongoRepository<TaskMongoEntity> {
     override fun save(task: Task): Task {
-        val existingEntity = task.id?.let { findById(ObjectId(it)) }
+        val existingEntity = task.id
+            ?.takeIf { ObjectId.isValid(it) }
+            ?.let { findById(ObjectId(it)) }
         val entity = task.toEntityMongo(existingEntity)
         persistOrUpdate(entity)
 
