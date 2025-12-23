@@ -26,7 +26,7 @@ class TaskPanacheMongoRepositoryTest {
 
     @Test
     fun testSaveTask_ShouldPersistOneEntry() {
-        val newTask = Task(title = "example task", type = TaskType.WORK, dueDate = Instant.now())
+        val newTask = Task(title = "example task", type = TaskType.WORK, userID = "user", dueDate = Instant.now())
 
         val savedTask = repository.save(newTask)
 
@@ -41,9 +41,9 @@ class TaskPanacheMongoRepositoryTest {
 
     @Test
     fun testFindTasks_ShouldFoundAllTasks() {
-        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, dueDate = Instant.now().truncatedTo(ChronoUnit.SECONDS)))
-        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, dueDate = Instant.now().truncatedTo(ChronoUnit.SECONDS)))
-        repository.save(Task(title = "example 3 of task", type = TaskType.WORK, dueDate = Instant.now().truncatedTo(ChronoUnit.SECONDS)))
+        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.now().truncatedTo(ChronoUnit.SECONDS)))
+        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.now().truncatedTo(ChronoUnit.SECONDS)))
+        repository.save(Task(title = "example 3 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.now().truncatedTo(ChronoUnit.SECONDS)))
 
         val criteria = TaskSearchCriteria()
         val logs = repository.find(criteria)
@@ -52,8 +52,8 @@ class TaskPanacheMongoRepositoryTest {
 
     @Test
     fun testFindTasks_FilterByDateRange() {
-        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, dueDate = Instant.parse("2025-01-01T00:00:00.00Z")))
-        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, dueDate = Instant.parse("2025-01-01T00:05:00.00Z")))
+        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.parse("2025-01-01T00:00:00.00Z")))
+        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.parse("2025-01-01T00:05:00.00Z")))
 
         findTasksByDateRange(0, Instant.parse("2024-01-01T00:00:00.00Z"), Instant.parse("2024-12-31T23:59:59.00Z"))
         findTasksByDateRange(1, Instant.parse("2025-01-01T00:00:00.00Z"), Instant.parse("2025-01-01T00:05:00.00Z"))
@@ -63,8 +63,8 @@ class TaskPanacheMongoRepositoryTest {
 
     @Test
     fun testFindTasks_FilterByType() {
-        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, dueDate = Instant.parse("2025-01-01T00:00:00.00Z")))
-        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, dueDate = Instant.parse("2025-01-01T00:05:00.00Z")))
+        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.parse("2025-01-01T00:00:00.00Z")))
+        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.parse("2025-01-01T00:05:00.00Z")))
 
         findTasksByType(2, TaskType.WORK)
         findTasksByType(0, TaskType.HOUSEWORK)
@@ -72,8 +72,8 @@ class TaskPanacheMongoRepositoryTest {
 
     @Test
     fun testFindTasks_FilterByDateRangeAndType() {
-        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, dueDate = Instant.parse("2025-01-01T00:00:00.00Z")))
-        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, dueDate = Instant.parse("2025-01-01T00:05:00.00Z")))
+        repository.save(Task(title = "example 1 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.parse("2025-01-01T00:00:00.00Z")))
+        repository.save(Task(title = "example 2 of task", type = TaskType.WORK, userID = "user", dueDate = Instant.parse("2025-01-01T00:05:00.00Z")))
 
         findTasksByDateRangeAndType(0, Instant.parse("2025-01-01T00:00:00.00Z"), Instant.parse("2025-01-01T00:10:00.00Z"),
             TaskType.HOUSEWORK)

@@ -23,7 +23,7 @@ class TaskServiceTest {
 
     @Test
     fun shouldSaveTaskWhenIsValid() {
-        val task = Task(title = "task-title", type = TaskType.WORK, dueDate = Instant.now())
+        val task = Task(title = "task-title", type = TaskType.WORK, userID = "user", dueDate = Instant.now())
         Mockito.`when`(repository.save(task)).thenReturn(task)
 
         val result = service.saveTask(task)

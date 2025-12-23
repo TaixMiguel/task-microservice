@@ -8,6 +8,7 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 
 data class TaskRequestDTO(
+    var userID: String? = null,
     @field:NotBlank(message = "Task title cannot be blank.")
     val title: String = "",
     @field:NotNull(message = "Task type cannot be null.")
@@ -15,10 +16,11 @@ data class TaskRequestDTO(
     @field:NotNull(message = "Task due date cannot be null.")
     val dueDate: Instant? = null
 ) {
-    fun toTask(): Task {
+    fun toTask(userID: String): Task {
         return Task(
             title = this.title,
             type = this.type!!,
+            userID = this.userID?:userID,
             dueDate = this.dueDate!!.truncatedTo(ChronoUnit.SECONDS)
         )
     }

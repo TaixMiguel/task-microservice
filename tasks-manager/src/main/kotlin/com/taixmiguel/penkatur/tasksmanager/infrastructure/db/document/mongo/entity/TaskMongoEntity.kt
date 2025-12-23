@@ -11,6 +11,7 @@ data class TaskMongoEntity(
     @field:BsonId
     var id: ObjectId? = null,
     var title: String = "Unknown",
+    var userID: String = "Unknown",
     var type: TaskType = TaskType.WORK,
     var dueDate: Instant = Instant.now(),
     var createdAt: Instant = Instant.now(),
