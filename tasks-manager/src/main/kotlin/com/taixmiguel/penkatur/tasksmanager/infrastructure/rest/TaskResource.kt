@@ -15,7 +15,7 @@ class TaskResource @Inject constructor(
     override fun findTasks(criteria: TaskSearchCriteria): List<Task> = service.findTasks(criteria)
 
     override fun saveTask(request: TaskRequestDTO): Response {
-        service.saveTask(request.toTask())
-        return Response.status(Response.Status.CREATED).build()
+        val createdTask = service.saveTask(request.toTask())
+        return Response.status(Response.Status.CREATED).entity(createdTask).build()
     }
 }

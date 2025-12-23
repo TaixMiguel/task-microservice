@@ -18,8 +18,8 @@ data class TaskRequestDTO(
     fun toTask(): Task {
         return Task(
             title = this.title,
-            type = this.type ?: TaskType.HOUSEWORK,
-            dueDate = (this.dueDate ?: Instant.now()).truncatedTo(ChronoUnit.SECONDS)
+            type = this.type!!,
+            dueDate = this.dueDate!!.truncatedTo(ChronoUnit.SECONDS)
         )
     }
 }

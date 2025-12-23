@@ -21,5 +21,6 @@ interface TaskApi {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     fun saveTask(@Valid request: TaskRequestDTO): Response
 }

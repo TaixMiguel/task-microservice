@@ -66,7 +66,7 @@ class TaskResourceIntegrationTest {
     @Test
     fun testCreateTaskReturnsStatus400WhenMessageIsMissingTitle() {
         val bodyJson = """
-            { "title": "type": "MEAL", "dueDate": "${Instant.now().toString()}" }
+            { "type": "MEAL", "dueDate": "${Instant.now().toString()}" }
         """
 
         given()
