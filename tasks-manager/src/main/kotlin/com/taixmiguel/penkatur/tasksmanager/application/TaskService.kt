@@ -11,6 +11,7 @@ class TaskService @Inject constructor(
     private val repository: TaskRepository
 ) {
     fun saveTask(task: Task): Task {
+        if (task.userID.isBlank()) throw IllegalArgumentException("Task userID cannot be blank.")
         if (task.title.isBlank()) throw IllegalArgumentException("Task title cannot be blank.")
         return repository.save(task)
     }

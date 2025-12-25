@@ -8,6 +8,7 @@ import java.time.temporal.ChronoUnit
 
 fun TaskMongoEntity.toDomain() = Task(
     id = this.id?.toString(),
+    userID = this.userID,
     title = this.title,
     type = this.type,
     dueDate = this.dueDate,
@@ -18,6 +19,7 @@ fun TaskMongoEntity.toDomain() = Task(
 fun Task.toEntityMongo(existingEntity: TaskMongoEntity? = null) = TaskMongoEntity(
     type = this.type,
     title = this.title,
+    userID = this.userID,
     dueDate = this.dueDate,
     updatedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS),
     createdAt = existingEntity?.createdAt ?: Instant.now().truncatedTo(ChronoUnit.SECONDS)

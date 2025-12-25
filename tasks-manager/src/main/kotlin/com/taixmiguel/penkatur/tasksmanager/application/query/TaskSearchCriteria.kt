@@ -11,4 +11,7 @@ data class TaskSearchCriteria(
     val dateTo: Instant? = null,
     @field:QueryParam("type")
     val type: TaskType? = null,
-)
+    val users: MutableList<String> = mutableListOf()
+) {
+    fun addUser(userId: String) = users.add(userId)
+}

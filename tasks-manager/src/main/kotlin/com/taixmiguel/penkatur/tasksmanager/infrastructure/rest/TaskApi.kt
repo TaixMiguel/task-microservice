@@ -3,6 +3,7 @@ package com.taixmiguel.penkatur.tasksmanager.infrastructure.rest
 import com.taixmiguel.penkatur.tasksmanager.application.dto.TaskRequestDTO
 import com.taixmiguel.penkatur.tasksmanager.application.query.TaskSearchCriteria
 import com.taixmiguel.penkatur.tasksmanager.domain.Task
+import io.quarkus.security.Authenticated
 import jakarta.validation.Valid
 import jakarta.ws.rs.BeanParam
 import jakarta.ws.rs.Consumes
@@ -13,6 +14,7 @@ import jakarta.ws.rs.Produces
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 
+@Authenticated
 @Path("/api/tasks")
 interface TaskApi {
     @GET
