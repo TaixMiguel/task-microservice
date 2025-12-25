@@ -29,8 +29,8 @@ class TaskPanacheMongoRepository: TaskRepository, PanacheMongoRepository<TaskMon
     override fun find(criteria: TaskSearchCriteria): List<Task> {
         val filters = mutableListOf<Bson>()
 
+        if (criteria.users.isNotEmpty()) filters.add(Filters.`in`("userID", criteria.users))
         criteria.dateFrom?.let { from -> filters.add(Filters.gte("dueDate", from)) }
-        criteria.users.let { users -> filters.add(Filters.`in`("userID", users)) }
         criteria.dateTo?.let { to -> filters.add(Filters.lt("dueDate", to)) }
         criteria.type?.let { type -> filters.add(Filters.eq("type", type)) }
 

@@ -18,9 +18,9 @@ data class TaskRequestDTO(
 ) {
     fun toTask(userID: String): Task {
         return Task(
+            userID = userID,
             title = this.title,
             type = this.type!!,
-            userID = this.userID?:userID,
             dueDate = this.dueDate!!.truncatedTo(ChronoUnit.SECONDS)
         )
     }
