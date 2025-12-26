@@ -2,8 +2,8 @@ package com.taixmiguel.penkatur.tasksmanager.infrastructure.rest
 
 import com.taixmiguel.penkatur.tasksmanager.application.TaskService
 import com.taixmiguel.penkatur.tasksmanager.application.dto.TaskRequestDTO
-import com.taixmiguel.penkatur.tasksmanager.application.query.TaskSearchCriteria
 import com.taixmiguel.penkatur.tasksmanager.domain.Task
+import com.taixmiguel.penkatur.tasksmanager.infrastructure.rest.dto.TaskSearchCriteriaDTO
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.ws.rs.core.Response
@@ -14,7 +14,8 @@ class TaskResource @Inject constructor(
     private val service: TaskService,
     private val jwt: JsonWebToken
 ): TaskApi {
-    override fun findTasks(criteria: TaskSearchCriteria): List<Task> {
+    override fun findTasks(criteriaDTO: TaskSearchCriteriaDTO): List<Task> {
+        val criteria = criteriaDTO.toTaskSearchCriteria()
         criteria.addUser(jwt.subject)
         return service.findTasks(criteria)
     }

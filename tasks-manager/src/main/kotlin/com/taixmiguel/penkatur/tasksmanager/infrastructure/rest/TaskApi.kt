@@ -1,8 +1,8 @@
 package com.taixmiguel.penkatur.tasksmanager.infrastructure.rest
 
 import com.taixmiguel.penkatur.tasksmanager.application.dto.TaskRequestDTO
-import com.taixmiguel.penkatur.tasksmanager.application.query.TaskSearchCriteria
 import com.taixmiguel.penkatur.tasksmanager.domain.Task
+import com.taixmiguel.penkatur.tasksmanager.infrastructure.rest.dto.TaskSearchCriteriaDTO
 import io.quarkus.security.Authenticated
 import jakarta.validation.Valid
 import jakarta.ws.rs.BeanParam
@@ -19,7 +19,7 @@ import jakarta.ws.rs.core.Response
 interface TaskApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    fun findTasks(@BeanParam criteria: TaskSearchCriteria): List<Task>
+    fun findTasks(@BeanParam criteriaDTO: TaskSearchCriteriaDTO): List<Task>
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
