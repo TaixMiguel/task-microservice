@@ -16,5 +16,9 @@ class TaskServiceImpl @Inject constructor(
         return repository.save(task)
     }
 
-    override fun findTasks(criteria: TaskSearchCriteria): List<Task> = repository.find(criteria)
+    override fun findTasks(criteria: TaskSearchCriteria): List<Task> {
+        if (criteria.dateFrom != null && criteria.dateTo != null && criteria.dateFrom.isAfter(criteria.dateTo))
+            throw IllegalArgumentException("dateFrom cannot be after dateTo.")
+        return repository.find(criteria)
+    }
 }
