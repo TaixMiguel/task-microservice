@@ -19,7 +19,7 @@ class TaskServiceTest {
     private lateinit var repository: TaskRepository
 
     @InjectMocks
-    private lateinit var service: TaskService
+    private lateinit var service: TaskServiceImpl
 
     @Test
     fun shouldSaveTaskWhenIsValid() {
