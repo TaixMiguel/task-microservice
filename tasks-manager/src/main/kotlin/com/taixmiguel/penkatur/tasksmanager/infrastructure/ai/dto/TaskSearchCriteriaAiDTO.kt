@@ -29,15 +29,17 @@ data class TaskSearchCriteriaAiDTO(
     @field:JsonPropertyDescription("The type of task. Optional.")
     @field:JsonProperty(required = false)
     @field:Nullable
-    val type: TaskType? = null,
+    val type: String? = null,
 
     val warnings: MutableList<String> = mutableListOf()
 ) {
+    private val log = Logger.getLogger(TaskSearchCriteriaAiDTO::class.java)
+
     fun toTaskSearchCriteria(): TaskSearchCriteria {
         return TaskSearchCriteria(
             dateFrom = dateFrom?.let { parseInstantSafely(it) },
             dateTo = dateTo?.let { parseInstantSafely(it) },
-            type = type?.let { parseTypeSafely((it.name)) }
+            type = type?.let { parseTypeSafely((it)) }
         )
     }
 
@@ -46,7 +48,6 @@ data class TaskSearchCriteriaAiDTO(
             Instant.parse(date)
         } catch (e: DateTimeParseException) {
             warnings.add("The date '$date' was invalid, ignoring it. Please use ISO-8601 format.")
-            val log = Logger.getLogger(TaskSearchCriteriaAiDTO::class.java)
             log.warn("The LLM send an invalid date: $date.")
             null
         }
@@ -58,7 +59,6 @@ data class TaskSearchCriteriaAiDTO(
         } catch (e: IllegalArgumentException) {
             val types = TaskType.entries.joinToString(", ") { "'${it.name}'" }
             warnings.add("The type '$type' was invalid, ignoring it. Please use $types.")
-            val log = Logger.getLogger(TaskSearchCriteriaAiDTO::class.java)
             log.warn("The LLM send an invalid task type: $type.")
             null
         }

@@ -19,12 +19,22 @@ class TaskToolAdapter @Inject constructor(
     fun findTasks(criteria: TaskSearchCriteriaAiDTO): AiToolResponse<List<Task>> {
         val searchCriteria = criteria.toTaskSearchCriteria()
         searchCriteria.addUser(jwt.subject)
-        return AiToolResponse(
-            data = service.findTasks(searchCriteria),
-            warnings = criteria.warnings.ifEmpty { null }
-        )
+
+        return try {
+            AiToolResponse(
+                data = service.findTasks(searchCriteria),
+                warnings = criteria.warnings.ifEmpty { null }
+            )
+        } catch (e: Exception) {
+            AiToolResponse(
+                data = null,
+                errors = listOf("${e.message}"),
+                warnings = criteria.warnings.ifEmpty { null }
+            )
+        }
     }
 
+    @Authenticated
     @Tool(name = "availableTaskTypes", description = "Retrieves the list of available task types in the system.")
     fun availableTaskTypes(): List<String> {
         return TaskType.entries.map { it.name }
