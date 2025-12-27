@@ -46,7 +46,7 @@ data class TaskSearchCriteriaAiDTO(
     private fun parseInstantSafely(date: String): Instant? {
         return try {
             Instant.parse(date)
-        } catch (e: DateTimeParseException) {
+        } catch (_: DateTimeParseException) {
             warnings.add("The date '$date' was invalid, ignoring it. Please use ISO-8601 format.")
             log.warn("The LLM send an invalid date: $date.")
             null
@@ -56,7 +56,7 @@ data class TaskSearchCriteriaAiDTO(
     private fun parseTypeSafely(type: String): TaskType? {
         return try {
             TaskType.valueOf(type.uppercase())
-        } catch (e: IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
             val types = TaskType.entries.joinToString(", ") { "'${it.name}'" }
             warnings.add("The type '$type' was invalid, ignoring it. Please use $types.")
             log.warn("The LLM send an invalid task type: $type.")
