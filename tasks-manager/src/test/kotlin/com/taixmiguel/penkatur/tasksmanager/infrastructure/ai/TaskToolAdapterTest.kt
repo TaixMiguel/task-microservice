@@ -47,7 +47,7 @@ class TaskToolAdapterTest {
         val dateFromStr = "2023-01-01T00:00:00Z"
         val criteriaDto = TaskSearchCriteriaAiDTO(
             dateFrom = dateFromStr,
-            type = TaskType.WORK
+            type = "WORK"
         )
 
         val expectedCriteria = TaskSearchCriteria(
@@ -73,7 +73,7 @@ class TaskToolAdapterTest {
 
         val criteriaDto = TaskSearchCriteriaAiDTO(
             dateFrom = "invalid-date",
-            type = TaskType.WORK
+            type = "WORK"
         )
         
         // When date is invalid, it is ignored (null) in conversion, but added to warnings
